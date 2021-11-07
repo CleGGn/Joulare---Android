@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Joulare</string>
+    <string name="titleMenu">JOULARE</string>
+    <string name="sousTitreMenu">Menú principal</string>
+    <string name="unJoueurMenu">Jugar</string>
+    <string name="multiMenu">Multijugador</string>
+    <string name="optionMenu">Opciones</string>
+    <string name="classementMenu">Clasificación</string>
+    <string name="exitMenu">Salida</string>
+    <string name="resume">Retomar</string>
+
+
+    <string name="nameMenu">Escoge un nombre</string>
+    <string name="yourName">Su nombre</string>
+    <string name="playName">Se fue !</string>
+    <string name="ff">Rendirse</string>
+
+    <string name="sousTitreParam">Opciones</string>
+    <string name="sonOption">Opciones de sonido</string>
+    <string name="langueOption">Idiomas</string>
+    <string name="exitRetour">Atrás</string>
+
+    <string name="langFr">Francés</string>
+    <string name="langEng">Inglés</string>
+    <string name="langEsp">Español</string>
+
+</resources>

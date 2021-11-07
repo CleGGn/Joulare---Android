@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-land/activity_gameon.xml" value="0.33" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-land/activity_lang.xml" value="0.31040564373897706" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-land/activity_main.xml" value="0.31040564373897706" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-land/activity_name.xml" value="0.31040564373897706" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-land/activity_params.xml" value="0.31040564373897706" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-land/activity_rank.xml" value="0.31040564373897706" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-land/cellule.xml" value="0.31040564373897706" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-port/activity_gameon.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-port/activity_lang.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-port/activity_main.xml" value="0.33" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-port/activity_name.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-port/activity_params.xml" value="0.3365036231884058" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-port/activity_rank.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout-port/cellule.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout/activity_gameon.xml" value="0.31040564373897706" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout/activity_lang.xml" value="0.33" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout/activity_name.xml" value="0.33" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout/activity_params.xml" value="0.33" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout/activity_rank.xml" value="0.33" />
+        <entry key="..\:/Android_Workspace/Joulare2-master/app/src/main/res/layout/cellule.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14010416666666667" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14010416666666667" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout-land/activity_lang.xml" value="0.31040564373897706" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout-land/activity_main.xml" value="0.264" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout-land/activity_params.xml" value="0.264" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout-land/activity_rank.xml" value="0.31040564373897706" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout-port/activity_lang.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout-port/activity_main.xml" value="0.264" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout-port/activity_params.xml" value="0.264" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout-port/activity_rank.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout/activity_lang.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout/activity_params.xml" value="0.33" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/layout/activity_rank.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Android_Workspace/joulare/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-land/activity_lang.xml" value="0.294973544973545" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-land/activity_main.xml" value="0.294973544973545" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-land/activity_name.xml" value="0.31040564373897706" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-land/activity_params.xml" value="0.30687830687830686" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-land/activity_rank.xml" value="0.30687830687830686" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-port/activity_gameon.xml" value="0.2871376811594203" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-port/activity_lang.xml" value="0.22" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-port/activity_main.xml" value="0.25" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-port/activity_name.xml" value="0.36666666666666664" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-port/activity_params.xml" value="0.3625" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout-port/activity_rank.xml" value="0.3625" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout/activity_gameon.xml" value="0.25" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout/activity_lang.xml" value="0.3625" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout/activity_name.xml" value="0.25" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout/activity_params.xml" value="0.36666666666666664" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout/activity_rank.xml" value="0.36666666666666664" />
+        <entry key="..\:/Workspace_android/Joulare/app/src/main/res/layout/activity_sound.xml" value="0.36666666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
