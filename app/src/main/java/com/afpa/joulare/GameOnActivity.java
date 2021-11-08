@@ -53,6 +53,8 @@ public class GameOnActivity extends Activity {
                     @Override
                     public void onClick(View v) {
                         clicCase(v);
+                        String newImg ="@drawable/emptycell";
+                        mesColonnes.setBackground(getDrawable(getResources().getIdentifier(newImg, null, getPackageName())));
                     }
                 });
             }
@@ -63,10 +65,15 @@ public class GameOnActivity extends Activity {
         nomJoueur.setText(strNom);
     }
 
+    /**
+     * Fonction qui affiche quelque chose au moment du clic sur la vue
+     * @param v la vue
+     */
     private void clicCase(View v) {
         int idVue = v.getId();
         Toast.makeText(this,"CASE:" + idVue,Toast.LENGTH_SHORT).show();
         Log.i(TAG, "CASE : " + idVue);
+
     }
 
     /**
@@ -94,7 +101,10 @@ public class GameOnActivity extends Activity {
         getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
     }
 
-
+    /**
+     * Fonction qui affiche une bulle de dialogue et met un terme ou non à l'instance de la partie
+     * @param view la vue
+     */
     public void clicForfeit(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameOnActivity.this);
         builder.setTitle("Attention !");
