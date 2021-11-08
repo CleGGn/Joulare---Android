@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,6 +67,8 @@ public class LangActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 } else {
+                    MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
+                    mpMundo.start();
                     Toast.makeText(LangActivity.this,"Vous êtes déja en français", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -95,6 +98,8 @@ public class LangActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 } else {
+                    MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
+                    mpMundo.start();
                     Toast.makeText(LangActivity.this,"You are already in english", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -119,11 +124,12 @@ public class LangActivity extends AppCompatActivity {
                 if (!language.equals(strLocale)) {
                 SharedPreferences.Editor edMesPrefs = mesPrefs.edit();
                 edMesPrefs.putString("Language", strLocale).apply();
-
                 Intent intent = new Intent(LangActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 } else {
+                    MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
+                    mpMundo.start();
                     Toast.makeText(LangActivity.this,"Ya estas en español", Toast.LENGTH_SHORT).show();
                 }
             }

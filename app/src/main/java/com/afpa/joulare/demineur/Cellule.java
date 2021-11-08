@@ -1,22 +1,19 @@
-package com.afpa.joulare.minesweeper;
+package com.afpa.joulare.demineur;
 
 public class Cellule {
 
-    public static final int MINE = -1;
-    public static final int VIDE = 0;
-
-    private int value;
+    private boolean mine;
     private boolean revealed;
     private boolean flagged;
 
-    public Cellule(int value){
-        this.value = value;
+    public Cellule(Boolean mine){
+        this.mine = mine;
         this.revealed = false;
         this.flagged = false;
     }
 
-    public int getValue(){
-        return value;
+    public boolean getMine(){
+        return mine;
     }
 
     public boolean getFlag() {

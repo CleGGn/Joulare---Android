@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.afpa.joulare.audio.AudioHandler;
@@ -19,6 +22,7 @@ public class NameActivity  extends AppCompatActivity {
 
     public final static String TAG = "NameActivity"; // Le TAG pour les Log
     public static MediaPlayer mpInGame = new MediaPlayer();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,18 +69,31 @@ public class NameActivity  extends AppCompatActivity {
     public void clicPlay(View view){
         Log.i(TAG, "clicPlay");
 
+        EditText nom = (EditText) findViewById(R.id.choiceName);
+        String strNom = nom.getText().toString();
 
-        mpInGame = MediaPlayer.create(getBaseContext(),R.raw.molennel);
-        mpInGame.setLooping(true);
-        mpInGame.seekTo(0);
-        mpInGame.start();
-
-        View nom = findViewById(R.id.choiceName);
-        String strNom = nom.toString();
-
-        Intent intent = new Intent(NameActivity.this, GameOnActivity.class);
-        intent.putExtra("nom", strNom);
-        startActivity(intent);
+        if(strNom.isEmpty()){
+            Toast.makeText(this, "Veuillez choisir un nom", Toast.LENGTH_SHORT).show();
+        } else if (strNom.equals("ElPoivrot")){
+            MediaPlayer mpLee = MediaPlayer.create(getBaseContext(),R.raw.lee);
+            mpLee.start();
+            mpInGame = MediaPlayer.create(getBaseContext(),R.raw.molennel);
+            mpInGame.start();
+            MediaPlayer mpHaha = MediaPlayer.create(getBaseContext(),R.raw.haha);
+            Intent intent = new Intent(NameActivity.this, GameOnActivity.class);
+            intent.putExtra("nom", strNom);
+            startActivity(intent);
+        } else {
+            mpInGame = MediaPlayer.create(getBaseContext(),R.raw.molennel);
+            MediaPlayer mpHaha = MediaPlayer.create(getBaseContext(),R.raw.haha);
+            mpInGame.setLooping(true);
+            mpInGame.seekTo(0);
+            mpInGame.start();
+            mpHaha.start();
+            Intent intent = new Intent(NameActivity.this, GameOnActivity.class);
+            intent.putExtra("nom", strNom);
+            startActivity(intent);
+        }
     }
 
     /**

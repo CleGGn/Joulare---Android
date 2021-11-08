@@ -6,18 +6,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.afpa.joulare.audio.AudioHandler;
+import androidx.appcompat.app.AlertDialog;
+
 
 import java.util.Locale;
 
-public class GameOnActivity extends AppCompatActivity {
+public class GameOnActivity extends Activity {
 
     public final static String TAG = "GameOnActivity"; // Le TAG pour les Log
 
@@ -28,6 +31,42 @@ public class GameOnActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         loadLocale();
         setContentView(R.layout.activity_gameon);
+        int count = 0;
+
+        LinearLayout monLayout = findViewById(R.id.grille);
+        for (int i = 0; i < 10 ; i++){
+            LinearLayout mesRangs = new LinearLayout(monLayout.getContext());
+            LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            mesRangs.setGravity(Gravity.CENTER);
+            monLayout.addView(mesRangs, linearParams);
+            for (int j = 0 ; j < 10 ; j++){
+                LinearLayout mesColonnes = new LinearLayout(mesRangs.getContext());
+                LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(100, 100);
+                mesColonnes.setGravity(Gravity.CENTER);
+                String imgName="@drawable/cell";
+                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(imgName, null, getPackageName())));
+                mesColonnes.setGravity(Gravity.CENTER);
+                count++;
+                mesColonnes.setId(count);
+                mesRangs.addView(mesColonnes,linearParams2);
+                mesColonnes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clicCase(v);
+                    }
+                });
+            }
+        }
+        TextView nomJoueur = findViewById(R.id.nomJoueur);
+        Intent nom = getIntent();
+        String strNom = nom.getExtras().getString("nom");
+        nomJoueur.setText(strNom);
+    }
+
+    private void clicCase(View v) {
+        int idVue = v.getId();
+        Toast.makeText(this,"CASE:" + idVue,Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "CASE : " + idVue);
     }
 
     /**

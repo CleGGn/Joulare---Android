@@ -42,7 +42,6 @@
         android:layout_marginTop="32dp"
         android:background="#D47BE3"
         android:fontFamily="@font/pixeled"
-        android:hint="@string/yourName"
         android:textAlignment="center"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/menu"
