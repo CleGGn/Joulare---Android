@@ -22,4 +22,11 @@
     <string name="langFr">Français</string>
     <string name="langEng">Anglais</string>
     <string name="langEsp">Espagnol</string>
+    <string name="sameLang">Vous êtes déja en français</string>
+
+    <string name="lengthName">Limite de 13 caractères</string>
+    <string name="emptyName">Veuillez choisir un nom</string>
+
+    <string name="flagIcone">🚩</string>
+
 </resources>

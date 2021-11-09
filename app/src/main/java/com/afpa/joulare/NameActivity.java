@@ -34,7 +34,6 @@ public class NameActivity  extends AppCompatActivity {
 
         Intent svc=new Intent(this, AudioHandler.class);
         startService(svc);
-
     }
 
     /**
@@ -73,7 +72,9 @@ public class NameActivity  extends AppCompatActivity {
         String strNom = nom.getText().toString();
 
         if(strNom.isEmpty()){
-            Toast.makeText(this, "Veuillez choisir un nom", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.emptyName, Toast.LENGTH_SHORT).show();
+        } else if(strNom.length() > 13){
+            Toast.makeText(this, R.string.lengthName, Toast.LENGTH_SHORT).show();
         } else if (strNom.equals("ElPoivrot")){
             MediaPlayer mpLee = MediaPlayer.create(getBaseContext(),R.raw.lee);
             mpLee.start();

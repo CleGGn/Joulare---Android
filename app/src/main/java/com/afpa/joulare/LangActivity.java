@@ -69,7 +69,7 @@ public class LangActivity extends AppCompatActivity {
                 } else {
                     MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
                     mpMundo.start();
-                    Toast.makeText(LangActivity.this,"Vous êtes déja en français", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LangActivity.this,R.string.sameLang, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -100,7 +100,7 @@ public class LangActivity extends AppCompatActivity {
                 } else {
                     MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
                     mpMundo.start();
-                    Toast.makeText(LangActivity.this,"You are already in english", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LangActivity.this,R.string.sameLang, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -130,7 +130,7 @@ public class LangActivity extends AppCompatActivity {
                 } else {
                     MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
                     mpMundo.start();
-                    Toast.makeText(LangActivity.this,"Ya estas en español", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LangActivity.this,R.string.sameLang, Toast.LENGTH_SHORT).show();
                 }
             }
         });

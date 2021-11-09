@@ -16,33 +16,71 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/many_years_higher"
         android:text="@string/titleMenu"
+        android:layout_marginTop="10dp"
         android:textAlignment="center"
         android:textColor="#D47BE3"
         android:textSize="50sp"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="88dp"
+        android:layout_height="61dp"
+        android:fontFamily="@font/pixeled"
+        android:textColor="#D47BE3"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/grille"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="0.769" />
+
     <TextView
         android:id="@+id/nomJoueur"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#D47BE3"
-        android:textSize="50sp"
+        android:layout_height="61dp"
+        android:fontFamily="@font/pixeled"
+        android:textColor="#3EDD1A"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/grille"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
-    <GridView
-        android:id="@+id/grille"
-        android:layout_width="357dp"
-        android:layout_height="519dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="68dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.126" />
+
+    <TextView
+        android:id="@+id/flags"
+        android:layout_width="62dp"
+        android:layout_height="61dp"
+        android:background="@drawable/flag"
+        android:fontFamily="@font/pixeled"
+        android:textColor="#D47BE3"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/grille"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="0.769" />
+
+    <LinearLayout
+        android:id="@+id/grille"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="68dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="0.197">
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/button5"
@@ -56,6 +94,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/grille"
         app:layout_constraintVertical_bias="0.0" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
