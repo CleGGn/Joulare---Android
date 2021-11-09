@@ -25,7 +25,7 @@ public class GameOnActivity extends Activity {
     private boolean mine = true;
     float width = 10;
     float height = 12;
-    float mineAmount = 12;
+    float mineAmount = 20;
 
 
 
@@ -33,15 +33,16 @@ public class GameOnActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         loadLocale();
         setContentView(R.layout.activity_gameon);
         // Initialisation du TIMER
-        TextView timer = (TextView) findViewById( R.id.timer );
-        new CountDownTimer(5*60000, 1000) {
+        TextView timer = (TextView) findViewById(R.id.timer);
+        new CountDownTimer(5 * 60000, 1000) {
             public void onTick(long millisUntilFinished) {
-                timer.setText(new SimpleDateFormat("mm:ss:SS").format(new Date( millisUntilFinished)));
+                timer.setText(new SimpleDateFormat("mm:ss:SS").format(new Date(millisUntilFinished)));
             }
+
             public void onFinish() {
                 timer.setText("X");
             }
@@ -57,49 +58,50 @@ public class GameOnActivity extends Activity {
         //Affichage de la grille
         LinearLayout monLayout = findViewById(R.id.grille);
         int count = -1;
-        for (int i = 0; i < 12 ; i++){
+        for (int i = 0; i < 12; i++) {
             float distribution = mineAmount / (width * height);
             float mult100 = Math.round(distribution * 100);
             LinearLayout mesRangs = new LinearLayout(monLayout.getContext());
             LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             mesRangs.setGravity(Gravity.CENTER);
             monLayout.addView(mesRangs, linearParams);
-            for (int j = 0 ; j < 10 ; j++){
+            for (int j = 0; j < 10; j++) {
                 if (Math.round(Math.random() * mult100) == 4 && mineAmount > 0) {
                     checkMine[i][j] = mine;
                     mineAmount--;
                 } else {
                     checkMine[i][j] = !mine;
-                } Log.i(TAG,"Mine :" + checkMine[i][j]);
+                }
+                Log.i(TAG, "Mine :" + checkMine[i][j]);
                 LinearLayout mesColonnes = new LinearLayout(mesRangs.getContext());
                 LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(105, 105);
                 mesColonnes.setGravity(Gravity.CENTER);
-                String imgName="@drawable/cell";
+                String imgName = "@drawable/cell";
                 mesColonnes.setBackground(getDrawable(getResources().getIdentifier(imgName, null, getPackageName())));
                 mesColonnes.setGravity(Gravity.CENTER);
                 count++;
                 mesColonnes.setId(count);
-                mesRangs.addView(mesColonnes,linearParams2);
+                mesRangs.addView(mesColonnes, linearParams2);
                 mesColonnes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         clicCase(v);
                         verifyBoard(mesColonnes.getId());
-                        String emptyCell ="@drawable/emptycell";
-                        String mineCell = "@drawable/mine";
+                        String emptyCell = "@drawable/emptycell";
+                        String mineCell = "@drawable/trex";
 
-                        if(verifyBoard(mesColonnes.getId())) {
+                        if (verifyBoard(mesColonnes.getId())) {
                             mesColonnes.setBackground(getDrawable(getResources().getIdentifier(mineCell, null, getPackageName())));
                         } else {
                             mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
                         }
-
-                    });
-                }
-
+                    }
+                });
             }
+
         }
     }
+
 
     /**
      * Fonction qui affiche quelque chose au moment du clic sur la vue
@@ -110,17 +112,26 @@ public class GameOnActivity extends Activity {
         Log.i(TAG, "CASE : " + idVue);
     }
 
-    private boolean verifyBoard(int idVue){
+    /**
+     * Fonction qui parcours le tableau et retourne true pour les cases minés
+     * @param idVue l'ID de la case
+     */
+    private boolean verifyBoard(int idVue) {
         int i;
         int j;
-    if(idVue > 10){
-        i = idVue / 10;
-        j = idVue % 10;
-        return checkMine[i][j];
-    } else {
-        i = 0;
-        j = idVue + 1;
-        return checkMine[i][j];
+        if (idVue > 10) {
+            i = idVue / 10;
+            j = idVue % 10;
+            return checkMine[i][j];
+        } else if(idVue == 10){
+            i = 1;
+            j = 0;
+            return checkMine[i][j];
+        } else{
+            i = 0;
+            j = idVue;
+            return checkMine[i][j];
+        }
     }
 
     /**
