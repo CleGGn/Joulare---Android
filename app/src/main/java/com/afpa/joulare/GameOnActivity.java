@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -18,11 +19,29 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 
+import com.afpa.joulare.demineur.Cellule;
+
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimerTask;
 
 public class GameOnActivity extends Activity {
 
     public final static String TAG = "GameOnActivity"; // Le TAG pour les Log
+    public boolean [][] checkMine = new boolean[12][10];
+    public LinearLayout mesRangs;
+    public LinearLayout mesColonnes;
+    private boolean end = false;
+    private boolean win = false;
+    private final boolean mine = true;
+    private boolean revealed;
+    private boolean flagged;
+    float width = 10;
+    float height = 12;
+    float mineAmount = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +50,53 @@ public class GameOnActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         loadLocale();
         setContentView(R.layout.activity_gameon);
-        int count = 0;
+        // Initialisation du TIMER
+        TextView timer = (TextView) findViewById( R.id.timer );
+        new CountDownTimer(5*60000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                timer.setText(new SimpleDateFormat("mm:ss:SS").format(new Date( millisUntilFinished)));
+            }
+            public void onFinish() {
+                timer.setText("PERDU");
+            }
+        }.start();
 
+        //Affichage du nom du joueur
+        TextView nomJoueur = findViewById(R.id.nomJoueur);
+        Intent nom = getIntent();
+        String strNom = nom.getExtras().getString("nom");
+        nomJoueur.setText(strNom);
+
+        float distribution = mineAmount / (width * height);
+        float mult100 = Math.round(distribution * 100);
+
+        Log.i(TAG,"distribution " + distribution);
+        Log.i(TAG,"mult100 " + mult100);
+
+        for(int a = 0; a < height; a++) {
+            for (int b = 0; b < width; b++) {
+                if (Math.round(Math.random() * mult100) == 4 && mineAmount > 0) {
+                    checkMine[a][b] = mine;
+                    mineAmount--;
+                } else {
+                    checkMine[a][b] = !mine;
+                }
+                Log.i(TAG,"Mine ? " + checkMine[a][b]);
+            }
+        }
+
+        //Affichage de la grille
         LinearLayout monLayout = findViewById(R.id.grille);
-        for (int i = 0; i < 10 ; i++){
-            LinearLayout mesRangs = new LinearLayout(monLayout.getContext());
+        int count = -1;
+
+        for (int i = 0; i < 12 ; i++){
+            mesRangs = new LinearLayout(monLayout.getContext());
             LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             mesRangs.setGravity(Gravity.CENTER);
             monLayout.addView(mesRangs, linearParams);
             for (int j = 0 ; j < 10 ; j++){
-                LinearLayout mesColonnes = new LinearLayout(mesRangs.getContext());
-                LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(100, 100);
+                mesColonnes = new LinearLayout(mesRangs.getContext());
+                LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(105, 105);
                 mesColonnes.setGravity(Gravity.CENTER);
                 String imgName="@drawable/cell";
                 mesColonnes.setBackground(getDrawable(getResources().getIdentifier(imgName, null, getPackageName())));
@@ -59,10 +114,6 @@ public class GameOnActivity extends Activity {
                 });
             }
         }
-        TextView nomJoueur = findViewById(R.id.nomJoueur);
-        Intent nom = getIntent();
-        String strNom = nom.getExtras().getString("nom");
-        nomJoueur.setText(strNom);
     }
 
     /**
@@ -73,8 +124,8 @@ public class GameOnActivity extends Activity {
         int idVue = v.getId();
         Toast.makeText(this,"CASE:" + idVue,Toast.LENGTH_SHORT).show();
         Log.i(TAG, "CASE : " + idVue);
-
     }
+
 
     /**
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences
