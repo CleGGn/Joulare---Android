@@ -11,37 +11,23 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
-
-
-import com.afpa.joulare.demineur.Cellule;
-
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimerTask;
 
 public class GameOnActivity extends Activity {
 
     public final static String TAG = "GameOnActivity"; // Le TAG pour les Log
     public boolean [][] checkMine = new boolean[12][10];
-    public LinearLayout mesRangs;
-    public LinearLayout mesColonnes;
-    private boolean end = false;
-    private boolean win = false;
-    private final boolean mine = true;
-    private boolean revealed;
-    private boolean flagged;
+    private boolean mine = true;
     float width = 10;
     float height = 12;
     float mineAmount = 12;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +43,7 @@ public class GameOnActivity extends Activity {
                 timer.setText(new SimpleDateFormat("mm:ss:SS").format(new Date( millisUntilFinished)));
             }
             public void onFinish() {
-                timer.setText("PERDU");
+                timer.setText("X");
             }
         }.start();
 
@@ -67,35 +53,25 @@ public class GameOnActivity extends Activity {
         String strNom = nom.getExtras().getString("nom");
         nomJoueur.setText(strNom);
 
-        float distribution = mineAmount / (width * height);
-        float mult100 = Math.round(distribution * 100);
-
-        Log.i(TAG,"distribution " + distribution);
-        Log.i(TAG,"mult100 " + mult100);
-
-        for(int a = 0; a < height; a++) {
-            for (int b = 0; b < width; b++) {
-                if (Math.round(Math.random() * mult100) == 4 && mineAmount > 0) {
-                    checkMine[a][b] = mine;
-                    mineAmount--;
-                } else {
-                    checkMine[a][b] = !mine;
-                }
-                Log.i(TAG,"Mine ? " + checkMine[a][b]);
-            }
-        }
 
         //Affichage de la grille
         LinearLayout monLayout = findViewById(R.id.grille);
         int count = -1;
-
         for (int i = 0; i < 12 ; i++){
-            mesRangs = new LinearLayout(monLayout.getContext());
+            float distribution = mineAmount / (width * height);
+            float mult100 = Math.round(distribution * 100);
+            LinearLayout mesRangs = new LinearLayout(monLayout.getContext());
             LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             mesRangs.setGravity(Gravity.CENTER);
             monLayout.addView(mesRangs, linearParams);
             for (int j = 0 ; j < 10 ; j++){
-                mesColonnes = new LinearLayout(mesRangs.getContext());
+                if (Math.round(Math.random() * mult100) == 4 && mineAmount > 0) {
+                    checkMine[i][j] = mine;
+                    mineAmount--;
+                } else {
+                    checkMine[i][j] = !mine;
+                } Log.i(TAG,"Mine :" + checkMine[i][j]);
+                LinearLayout mesColonnes = new LinearLayout(mesRangs.getContext());
                 LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(105, 105);
                 mesColonnes.setGravity(Gravity.CENTER);
                 String imgName="@drawable/cell";
@@ -108,10 +84,19 @@ public class GameOnActivity extends Activity {
                     @Override
                     public void onClick(View v) {
                         clicCase(v);
-                        String newImg ="@drawable/emptycell";
-                        mesColonnes.setBackground(getDrawable(getResources().getIdentifier(newImg, null, getPackageName())));
-                    }
-                });
+                        verifyBoard(mesColonnes.getId());
+                        String emptyCell ="@drawable/emptycell";
+                        String mineCell = "@drawable/mine";
+
+                        if(verifyBoard(mesColonnes.getId())) {
+                            mesColonnes.setBackground(getDrawable(getResources().getIdentifier(mineCell, null, getPackageName())));
+                        } else {
+                            mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
+                        }
+
+                    });
+                }
+
             }
         }
     }
@@ -122,10 +107,21 @@ public class GameOnActivity extends Activity {
      */
     private void clicCase(View v) {
         int idVue = v.getId();
-        Toast.makeText(this,"CASE:" + idVue,Toast.LENGTH_SHORT).show();
         Log.i(TAG, "CASE : " + idVue);
     }
 
+    private boolean verifyBoard(int idVue){
+        int i;
+        int j;
+    if(idVue > 10){
+        i = idVue / 10;
+        j = idVue % 10;
+        return checkMine[i][j];
+    } else {
+        i = 0;
+        j = idVue + 1;
+        return checkMine[i][j];
+    }
 
     /**
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences
