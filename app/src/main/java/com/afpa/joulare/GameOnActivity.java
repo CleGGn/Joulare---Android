@@ -21,12 +21,11 @@ import java.util.Locale;
 public class GameOnActivity extends Activity {
 
     public final static String TAG = "GameOnActivity"; // Le TAG pour les Log
-    public boolean [][] checkMine = new boolean[12][10];
+    public int WIDTH = 4;
+    public int HEIGHT = 4;
+    public int mineAmount = 1;
+    public boolean [][] checkMine = new boolean[HEIGHT][WIDTH];
     private boolean mine = true;
-    float width = 10;
-    float height = 12;
-    float mineAmount = 20;
-
 
 
     @Override
@@ -40,11 +39,11 @@ public class GameOnActivity extends Activity {
         TextView timer = (TextView) findViewById(R.id.timer);
         new CountDownTimer(5 * 60000, 1000) {
             public void onTick(long millisUntilFinished) {
-                timer.setText(new SimpleDateFormat("mm:ss:SS").format(new Date(millisUntilFinished)));
+                timer.setText(new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished)));
             }
-
             public void onFinish() {
                 timer.setText("X");
+                //defeat();
             }
         }.start();
 
@@ -54,54 +53,88 @@ public class GameOnActivity extends Activity {
         String strNom = nom.getExtras().getString("nom");
         nomJoueur.setText(strNom);
 
-
         //Affichage de la grille
         LinearLayout monLayout = findViewById(R.id.grille);
         int count = -1;
-        for (int i = 0; i < 12; i++) {
-            float distribution = mineAmount / (width * height);
-            float mult100 = Math.round(distribution * 100);
-            LinearLayout mesRangs = new LinearLayout(monLayout.getContext());
-            LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            mesRangs.setGravity(Gravity.CENTER);
-            monLayout.addView(mesRangs, linearParams);
-            for (int j = 0; j < 10; j++) {
-                if (Math.round(Math.random() * mult100) == 4 && mineAmount > 0) {
-                    checkMine[i][j] = mine;
-                    mineAmount--;
-                } else {
-                    checkMine[i][j] = !mine;
-                }
-                Log.i(TAG, "Mine :" + checkMine[i][j]);
-                LinearLayout mesColonnes = new LinearLayout(mesRangs.getContext());
-                LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(105, 105);
-                mesColonnes.setGravity(Gravity.CENTER);
-                String imgName = "@drawable/cell";
-                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(imgName, null, getPackageName())));
-                mesColonnes.setGravity(Gravity.CENTER);
-                count++;
-                mesColonnes.setId(count);
-                mesRangs.addView(mesColonnes, linearParams2);
-                mesColonnes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clicCase(v);
-                        verifyBoard(mesColonnes.getId());
-                        String emptyCell = "@drawable/emptycell";
-                        String mineCell = "@drawable/trex";
-
-                        if (verifyBoard(mesColonnes.getId())) {
-                            mesColonnes.setBackground(getDrawable(getResources().getIdentifier(mineCell, null, getPackageName())));
+            for (int i = 0; i < HEIGHT; i++) {
+                LinearLayout mesRangs = new LinearLayout(monLayout.getContext());
+                LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                mesRangs.setGravity(Gravity.CENTER);
+                monLayout.addView(mesRangs, linearParams);
+                for (int j = 0; j < WIDTH; j++) {
+                    float distribution = mineAmount / (WIDTH * HEIGHT);
+                    int mult100 = Math.round(distribution * 100);
+                    long random = Math.round(Math.random() * 75);
+                    while(mineAmount != 0) {
+                        if (random < mult100) {
+                            if (checkMine[i][j] != mine) {
+                                checkMine[i][j] = mine;
+                                mineAmount--;
+                            }
                         } else {
-                            mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
+                            checkMine[i][j] = !mine;
                         }
                     }
-                });
+                    Log.i(TAG, "Mine amount :" + mineAmount);
+                    LinearLayout mesColonnes = new LinearLayout(mesRangs.getContext());
+                    LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(100, 100);
+                    mesColonnes.setGravity(Gravity.CENTER);
+                    String imgName = "@drawable/cell";
+                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(imgName, null, getPackageName())));
+                    mesColonnes.setGravity(Gravity.CENTER);
+                    count++;
+                    mesColonnes.setId(count);
+                    mesRangs.addView(mesColonnes, linearParams2);
+                    mesColonnes.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clicCase(v);
+                            //Log.i(TAG, "ID :" + mesColonnes.getId());
+                            //Log.i(TAG, "Mine ? " + verifyBoard(mesColonnes.getId()));
+                            //Log.i(TAG,  "Mines autour :" + distribImg(mesColonnes.getId()));
+                            String emptyCell = "@drawable/emptycell";
+                            String mineCell = "@drawable/trex";
+                            String cell1 = "@drawable/n1";
+                            String cell2 = "@drawable/n2";
+                            String cell3 = "@drawable/n3";
+                            String cell4 = "@drawable/n4";
+                            String cell5 = "@drawable/n5";
+                            String cell6 = "@drawable/n6";
+                            String cell7 = "@drawable/n7";
+                            String cell8 = "@drawable/n8";
+
+                            if (verifyBoard(mesColonnes.getId())) {
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(mineCell, null, getPackageName())));
+                                //defeat();
+                            } else
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
+
+                            if (!verifyBoard(mesColonnes.getId())) {
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
+                                if (distribImg(mesColonnes.getId()) == 1) {
+                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell1, null, getPackageName())));
+                                } else if (distribImg(mesColonnes.getId()) == 2) {
+                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell2, null, getPackageName())));
+                                } else if (distribImg(mesColonnes.getId()) == 3) {
+                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell3, null, getPackageName())));
+                                } else if (distribImg(mesColonnes.getId()) == 4) {
+                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell4, null, getPackageName())));
+                                } else if (distribImg(mesColonnes.getId()) == 5) {
+                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell5, null, getPackageName())));
+                                } else if (distribImg(mesColonnes.getId()) == 6) {
+                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell6, null, getPackageName())));
+                                } else if (distribImg(mesColonnes.getId()) == 7) {
+                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell7, null, getPackageName())));
+                                } else if (distribImg(mesColonnes.getId()) == 8) {
+                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell8, null, getPackageName())));
+                                }
+                            }
+
+                        }
+                    });
+                }
             }
-
-        }
     }
-
 
     /**
      * Fonction qui affiche quelque chose au moment du clic sur la vue
@@ -133,6 +166,185 @@ public class GameOnActivity extends Activity {
             return checkMine[i][j];
         }
     }
+
+    /**
+     * Fonction qui vérifie si la case possède des mines autour et renvoie un compteur qui indiquera le nombre de mines aux alentours
+     * @param idVue l'id de la case
+     * @return le compteur de mine autour
+     */
+    public int distribImg(int idVue) {
+        int count = 0;
+        int i;
+        int j;
+        if (idVue > WIDTH) {
+            i = idVue / WIDTH;
+            j = idVue % WIDTH;
+        } else if(idVue == WIDTH){
+            i = 1;
+            j = 0;
+
+        } else{
+            i = 0;
+            j = idVue;
+        }
+
+        if (!verifyBoard(idVue)) {
+            if (i==0 && j==0){
+                if(verifyBoard(idVue + 1)){
+                    count++;
+                }
+                if(verifyBoard(idVue + WIDTH)){
+                    count++;
+                }
+                if(verifyBoard(idVue + (WIDTH + 1))){
+                    count++;
+                }
+            } else if(i==0 && j==WIDTH-1){
+                if(verifyBoard(idVue - 1)){
+                    count++;
+                }
+                if(verifyBoard(idVue + WIDTH)){
+                    count++;
+                }
+                if(verifyBoard(idVue + (WIDTH - 1))){
+                    count++;
+                }
+            } else if (i==0){
+                if(verifyBoard(idVue + 1)){
+                    count++;
+                }
+                if(verifyBoard(idVue - 1)){
+                    count++;
+                }
+                if(verifyBoard(idVue + (WIDTH + 1))){
+                    count++;
+                }
+                if(verifyBoard(idVue + WIDTH)){
+                    count++;
+                }
+                if(verifyBoard(idVue + (WIDTH - 1))){
+                    count++;
+                }
+            } else if (i == HEIGHT-1 && j == 0){
+                if(verifyBoard(idVue + 1)){
+                    count++;
+                }
+                if(verifyBoard(idVue + (WIDTH - 1))){
+                    count++;
+                }
+                if(verifyBoard(idVue + WIDTH)){
+                    count++;
+                }
+            } else if (i == HEIGHT - 1 && j == WIDTH - 1 ) {
+                if(verifyBoard(idVue - 1)){
+                    count++;
+                }
+                if(verifyBoard(idVue - WIDTH)){
+                    count++;
+                }
+                if(verifyBoard(idVue - (WIDTH - 1))){
+                    count++;
+                }
+            } else if (i == HEIGHT - 1){
+                if(verifyBoard(idVue + 1)){
+                    count++;
+                }
+                if(verifyBoard(idVue - 1)){
+                    count++;
+                }
+                if(verifyBoard(idVue - (WIDTH + 1))){
+                    count++;
+                }
+                if(verifyBoard(idVue - WIDTH)){
+                    count++;
+                }
+                if(verifyBoard(idVue - (WIDTH - 1))){
+                    count++;
+                }
+            } else if (j == 0){
+                if(verifyBoard(idVue + 1)){
+                    count++;
+                }
+                if(verifyBoard(idVue + (WIDTH + 1))){
+                    count++;
+                }
+                if(verifyBoard(idVue + WIDTH)){
+                    count++;
+                }
+                if(verifyBoard(idVue - (WIDTH - 1))){
+                    count++;
+                }
+                if(verifyBoard(idVue - WIDTH)){
+                    count++;
+                }
+            } else if ( j == WIDTH - 1){
+                if(verifyBoard(idVue - 1)){
+                    count++;
+                }
+                if(verifyBoard(idVue - (WIDTH - 1))){
+                    count++;
+                }
+                if(verifyBoard(idVue - WIDTH)){
+                    count++;
+                }
+                if(verifyBoard(idVue + WIDTH)){
+                    count++;
+                }
+                if(verifyBoard(idVue + (WIDTH - 1))){
+                    count++;
+                }
+            } else {
+                if (verifyBoard(idVue + 1)) {
+                    count++;
+                }
+                if (verifyBoard(idVue - 1)) {
+                    count++;
+                }
+                if (verifyBoard(idVue - (WIDTH + 1))) {
+                    count++;
+                }
+                if (verifyBoard(idVue - WIDTH)) {
+                    count++;
+                }
+                if (verifyBoard(idVue - (WIDTH - 1))) {
+                    count++;
+                }
+                if (verifyBoard(idVue + (WIDTH + 1))) {
+                    count++;
+                }
+                if (verifyBoard(idVue + WIDTH)) {
+                    count++;
+                }
+                if (verifyBoard(idVue + (WIDTH - 1))) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Fonction qui provoque un immense sentiment d'amertume et de colère, et affiche une boite d'alerte permettant de retourner au menu principal
+     */
+    public void defeat(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(GameOnActivity.this);
+        builder.setTitle("DEFAITE !");
+        builder.setMessage("Vous avez lamentablement échoué...");
+        builder.setCancelable(false); //
+        builder.setPositiveButton("Menu principal", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                NameActivity.mpInGame.stop();
+                Intent intent = new Intent(GameOnActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 
     /**
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences
