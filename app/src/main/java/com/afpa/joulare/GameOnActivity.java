@@ -230,7 +230,7 @@ public class GameOnActivity extends Activity {
                 if(verifyBoard(idVue - (WIDTH - 1))){
                     count++;
                 }
-                if(verifyBoard(idVue + WIDTH)){
+                if(verifyBoard(idVue - WIDTH)){
                     count++;
                 }
             } else if (i == HEIGHT - 1 && j == WIDTH - 1 ) {
