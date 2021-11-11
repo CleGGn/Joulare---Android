@@ -1,18 +1,25 @@
 package com.afpa.joulare;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +30,8 @@ public class GameOnActivity extends Activity {
     public final static String TAG = "GameOnActivity"; // Le TAG pour les Log
     public int WIDTH = 10;
     public int HEIGHT = 12;
-    public float mineAmount = 20;
+    public float totalMine = 20;
+    public float compteurMine = totalMine;
     public boolean [][] checkMine = new boolean[HEIGHT][WIDTH];
     private boolean mine = true;
 
@@ -37,7 +45,7 @@ public class GameOnActivity extends Activity {
         setContentView(R.layout.activity_gameon);
         // Initialisation du TIMER
         TextView timer = findViewById(R.id.timer);
-        new CountDownTimer(5 * 60000, 1000) {
+        new CountDownTimer(8 * 60000, 1000) {
             public void onTick(long millisUntilFinished) {
                 timer.setText(new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished)));
             }
@@ -53,6 +61,27 @@ public class GameOnActivity extends Activity {
         String strNom = nom.getExtras().getString("nom");
         nomJoueur.setText(strNom);
 
+        while (compteurMine >= 0) {
+            for (int i = 0; i < HEIGHT; i++) {
+                float distribution = totalMine / (WIDTH * HEIGHT);
+                float mult100 = Math.round(distribution * 100);
+                for (int j = 0; j < WIDTH; j++) {
+                    long random = Math.round(Math.random() * 100);
+                    // Log.i(TAG, "mult100 :" + mult100);
+                    // Log.i(TAG, " random:" + random);
+                    if (random < mult100) {
+                        checkMine[i][j] = mine;
+                        compteurMine--;
+                    } else {
+                        checkMine[i][j] = !mine;
+                    }
+
+
+                    Log.i(TAG, "Compteur Mine :" + compteurMine);
+                }
+            }
+        }
+
         //Affichage de la grille
         LinearLayout monLayout = findViewById(R.id.grille);
         int count = -1;
@@ -62,18 +91,6 @@ public class GameOnActivity extends Activity {
                 mesRangs.setGravity(Gravity.CENTER);
                 monLayout.addView(mesRangs, linearParams);
                 for (int j = 0; j < WIDTH; j++) {
-                    float distribution = mineAmount / (WIDTH * HEIGHT);
-                    float mult100 = Math.round(distribution * 100);
-                    long random = Math.round(Math.random() * 75);
-                    Log.i(TAG, "mult100 :" + mult100);
-                    Log.i(TAG, " random:" + random);
-                        if (random < mult100) {
-                                checkMine[i][j] = mine;
-                                mineAmount--;
-                            } else {
-                            checkMine[i][j] = !mine;
-                        }
-                    Log.i(TAG, "Mine amount :" + mineAmount);
                     LinearLayout mesColonnes = new LinearLayout(mesRangs.getContext());
                     LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(100, 100);
                     mesColonnes.setGravity(Gravity.CENTER);
@@ -130,6 +147,14 @@ public class GameOnActivity extends Activity {
 
                         }
                     });
+                    mesColonnes.setOnDragListener(new View.OnDragListener() {
+                        @Override
+                        public boolean onDrag(View v, DragEvent event) {
+                        return true;
+                        }
+
+                    });
+
                 }
             }
     }
