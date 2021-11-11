@@ -21,9 +21,9 @@ import java.util.Locale;
 public class GameOnActivity extends Activity {
 
     public final static String TAG = "GameOnActivity"; // Le TAG pour les Log
-    public int WIDTH = 4;
-    public int HEIGHT = 4;
-    public int mineAmount = 1;
+    public int WIDTH = 10;
+    public int HEIGHT = 12;
+    public float mineAmount = 20;
     public boolean [][] checkMine = new boolean[HEIGHT][WIDTH];
     private boolean mine = true;
 
@@ -36,14 +36,14 @@ public class GameOnActivity extends Activity {
         loadLocale();
         setContentView(R.layout.activity_gameon);
         // Initialisation du TIMER
-        TextView timer = (TextView) findViewById(R.id.timer);
+        TextView timer = findViewById(R.id.timer);
         new CountDownTimer(5 * 60000, 1000) {
             public void onTick(long millisUntilFinished) {
                 timer.setText(new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished)));
             }
             public void onFinish() {
                 timer.setText("X");
-                //defeat();
+                defeat();
             }
         }.start();
 
@@ -63,18 +63,16 @@ public class GameOnActivity extends Activity {
                 monLayout.addView(mesRangs, linearParams);
                 for (int j = 0; j < WIDTH; j++) {
                     float distribution = mineAmount / (WIDTH * HEIGHT);
-                    int mult100 = Math.round(distribution * 100);
+                    float mult100 = Math.round(distribution * 100);
                     long random = Math.round(Math.random() * 75);
-                    while(mineAmount != 0) {
+                    Log.i(TAG, "mult100 :" + mult100);
+                    Log.i(TAG, " random:" + random);
                         if (random < mult100) {
-                            if (checkMine[i][j] != mine) {
                                 checkMine[i][j] = mine;
                                 mineAmount--;
-                            }
-                        } else {
+                            } else {
                             checkMine[i][j] = !mine;
                         }
-                    }
                     Log.i(TAG, "Mine amount :" + mineAmount);
                     LinearLayout mesColonnes = new LinearLayout(mesRangs.getContext());
                     LinearLayout.LayoutParams linearParams2 = new LinearLayout.LayoutParams(100, 100);
@@ -89,9 +87,9 @@ public class GameOnActivity extends Activity {
                         @Override
                         public void onClick(View v) {
                             clicCase(v);
-                            //Log.i(TAG, "ID :" + mesColonnes.getId());
-                            //Log.i(TAG, "Mine ? " + verifyBoard(mesColonnes.getId()));
-                            //Log.i(TAG,  "Mines autour :" + distribImg(mesColonnes.getId()));
+                            Log.i(TAG, "ID :" + mesColonnes.getId());
+                            Log.i(TAG, "Mine ? " + verifyBoard(mesColonnes.getId()));
+                            Log.i(TAG,  "Mines autour :" + distribImg(mesColonnes.getId()));
                             String emptyCell = "@drawable/emptycell";
                             String mineCell = "@drawable/trex";
                             String cell1 = "@drawable/n1";
@@ -105,7 +103,7 @@ public class GameOnActivity extends Activity {
 
                             if (verifyBoard(mesColonnes.getId())) {
                                 mesColonnes.setBackground(getDrawable(getResources().getIdentifier(mineCell, null, getPackageName())));
-                                //defeat();
+                                defeat();
                             } else
                                 mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
 
@@ -152,11 +150,11 @@ public class GameOnActivity extends Activity {
     private boolean verifyBoard(int idVue) {
         int i;
         int j;
-        if (idVue > 10) {
-            i = idVue / 10;
-            j = idVue % 10;
+        if (idVue > WIDTH) {
+            i = idVue / WIDTH;
+            j = idVue % WIDTH;
             return checkMine[i][j];
-        } else if(idVue == 10){
+        } else if(idVue == WIDTH){
             i = 1;
             j = 0;
             return checkMine[i][j];

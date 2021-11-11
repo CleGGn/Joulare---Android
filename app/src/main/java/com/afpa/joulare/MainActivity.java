@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view la vue
      */
     public void clicSinglePlayer(View view){
-        Log.i(TAG, "clicRank");
+        Log.i(TAG, "clicPlay");
         Intent intent = new Intent(MainActivity.this, NameActivity.class);
         startActivity(intent);
     }
