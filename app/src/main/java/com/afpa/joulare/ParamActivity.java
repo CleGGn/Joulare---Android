@@ -3,12 +3,11 @@ package com.afpa.joulare;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,7 +25,23 @@ public class ParamActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         loadLocale();
         setContentView(R.layout.activity_params);
+
+        Button langue = findViewById(R.id.langue);
+        Button retour = findViewById(R.id.retourOptions);
+
+        langue.setOnClickListener(v -> {
+            Log.i(TAG, "clicLang");
+            Intent intent = new Intent(ParamActivity.this, LangActivity.class);
+            startActivity(intent);
+        });
+
+        retour.setOnClickListener(v -> { // Fonction retour
+            Log.i(TAG, "retourClic");
+            finish();
+        });
 }
+
+    /////////////////////////////////////////////////////////////////// Méthodes Applicatives //////////////////////////////////////////////////////////////////////
 
     /**
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences
@@ -52,25 +67,5 @@ public class ParamActivity extends AppCompatActivity {
         config.locale = myLocale;
         getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
     }
-
-    /**
-     * Fonction qui renvoie à la vue Languages
-     * @param v la vue
-     */
-    public void clicLang(View v){
-        Log.i(TAG, "clicLang");
-        Intent intent = new Intent(ParamActivity.this, LangActivity.class);
-        startActivity(intent);
-    }
-    /**
-     * fonction qui termine l'intent et revient à l'écran précédent
-     * @param v la vue
-     */
-    public void retourClic(View v) {
-        Log.i(TAG, "retourClic");
-        finish();
-    }
-
-
 
 }

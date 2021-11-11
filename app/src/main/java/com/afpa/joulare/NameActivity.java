@@ -6,9 +6,9 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,7 +34,60 @@ public class NameActivity  extends AppCompatActivity {
 
         Intent svc=new Intent(this, AudioHandler.class);
         startService(svc);
+
+        Button playGame = findViewById(R.id.playGame);
+        Button retour = findViewById(R.id.retourOptions);
+
+        playGame.setOnClickListener(v -> { // Fonction qui lance la partie sous certaines conditions
+            Log.i(TAG, "clicPlay");
+            EditText nom = (EditText) findViewById(R.id.choiceName);
+            String strNom = nom.getText().toString();
+            if(strNom.isEmpty()){
+                Toast.makeText(NameActivity.this, R.string.emptyName, Toast.LENGTH_SHORT).show();
+            } else if(strNom.length() > 13){
+                Toast.makeText(NameActivity.this, R.string.lengthName, Toast.LENGTH_SHORT).show();
+            } else if (strNom.equals("ElPoivrot")){
+                mpInGame = MediaPlayer.create(getBaseContext(),R.raw.molennel);
+                mpInGame.start();
+                MediaPlayer mpLee = MediaPlayer.create(getBaseContext(),R.raw.lee);
+                mpLee.start();
+                Intent intent = new Intent(NameActivity.this, GameOnActivity.class);
+                intent.putExtra("nom", strNom);
+                startActivity(intent);
+            } else if (strNom.equals("WhiteBread")){
+                mpInGame = MediaPlayer.create(getBaseContext(),R.raw.molennel);
+                mpInGame.start();
+                MediaPlayer mpLee = MediaPlayer.create(getBaseContext(),R.raw.putain);
+                mpLee.start();
+                Intent intent = new Intent(NameActivity.this, GameOnActivity.class);
+                intent.putExtra("nom", strNom);
+                startActivity(intent);
+            } else if (strNom.equals("ToriiArigato")){
+                mpInGame = MediaPlayer.create(getBaseContext(),R.raw.castaways);
+                mpInGame.start();
+                Intent intent = new Intent(NameActivity.this, GameOnActivity.class);
+                intent.putExtra("nom", strNom);
+                startActivity(intent);
+            }
+            else {
+                mpInGame = MediaPlayer.create(getBaseContext(),R.raw.molennel);
+                mpInGame.setLooping(true);
+                mpInGame.start();
+                MediaPlayer mpHaha = MediaPlayer.create(getBaseContext(),R.raw.haha);
+                mpHaha.start();
+                Intent intent = new Intent(NameActivity.this, GameOnActivity.class);
+                intent.putExtra("nom", strNom);
+                startActivity(intent);
+            }
+        });
+
+        retour.setOnClickListener(v -> { // Fonction retour
+            Log.i(TAG, "retourClic");
+            finish();
+        });
     }
+
+    /////////////////////////////////////////////////////////////////// Méthodes Applicatives //////////////////////////////////////////////////////////////////////
 
     /**
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences
@@ -59,51 +112,6 @@ public class NameActivity  extends AppCompatActivity {
         android.content.res.Configuration config = new android.content.res.Configuration();
         config.locale = myLocale;
         getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
-    }
-
-    /**
-     * Fonction qui lance la partie
-     * @param view la vue
-     */
-    public void clicPlay(View view){
-        Log.i(TAG, "clicPlay");
-
-        EditText nom = (EditText) findViewById(R.id.choiceName);
-        String strNom = nom.getText().toString();
-
-        if(strNom.isEmpty()){
-            Toast.makeText(this, R.string.emptyName, Toast.LENGTH_SHORT).show();
-        } else if(strNom.length() > 13){
-            Toast.makeText(this, R.string.lengthName, Toast.LENGTH_SHORT).show();
-        } else if (strNom.equals("ElPoivrot")){
-            MediaPlayer mpLee = MediaPlayer.create(getBaseContext(),R.raw.lee);
-            mpLee.start();
-            mpInGame = MediaPlayer.create(getBaseContext(),R.raw.molennel);
-            mpInGame.start();
-            MediaPlayer mpHaha = MediaPlayer.create(getBaseContext(),R.raw.haha);
-            Intent intent = new Intent(NameActivity.this, GameOnActivity.class);
-            intent.putExtra("nom", strNom);
-            startActivity(intent);
-        } else {
-            mpInGame = MediaPlayer.create(getBaseContext(),R.raw.molennel);
-            MediaPlayer mpHaha = MediaPlayer.create(getBaseContext(),R.raw.haha);
-            mpInGame.setLooping(true);
-            mpInGame.seekTo(0);
-            mpInGame.start();
-            mpHaha.start();
-            Intent intent = new Intent(NameActivity.this, GameOnActivity.class);
-            intent.putExtra("nom", strNom);
-            startActivity(intent);
-        }
-    }
-
-    /**
-     * fonction qui termine l'intent et revient à l'écran précédent
-     * @param v la vue
-     */
-    public void retourClic(View v) {
-        Log.i(TAG, "retourClic");
-        finish();
     }
 
 

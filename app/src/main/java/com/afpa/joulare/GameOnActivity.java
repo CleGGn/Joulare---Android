@@ -1,25 +1,20 @@
 package com.afpa.joulare;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,14 +23,15 @@ import java.util.Locale;
 public class GameOnActivity extends Activity {
 
     public final static String TAG = "GameOnActivity"; // Le TAG pour les Log
-    public int WIDTH = 10;
-    public int HEIGHT = 12;
-    public float totalMine = 20;
-    public float compteurMine = totalMine;
-    public boolean [][] checkMine = new boolean[HEIGHT][WIDTH];
-    private boolean mine = true;
+    public int WIDTH = 5; // Largeur de la grille
+    public int HEIGHT = 5; // Longueur de la grill
+    public float totalMine = 3; // Le nombre total de mine que l'on veut implémenter à la base
+    public float compteurMine = totalMine; // Le compteur de mine qui va se décrémenter dans le tableau
+    public boolean [][] checkMine = new boolean[HEIGHT][WIDTH]; // Tableau de booléen qui positionnera les mines
+    boolean mine = true; // Booléen de case miné ou non
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +39,12 @@ public class GameOnActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         loadLocale();
         setContentView(R.layout.activity_gameon);
+        Button ff = findViewById(R.id.ff);
+
         // Initialisation du TIMER
         TextView timer = findViewById(R.id.timer);
         new CountDownTimer(8 * 60000, 1000) {
+            @SuppressLint("SimpleDateFormat")
             public void onTick(long millisUntilFinished) {
                 timer.setText(new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished)));
             }
@@ -61,22 +60,19 @@ public class GameOnActivity extends Activity {
         String strNom = nom.getExtras().getString("nom");
         nomJoueur.setText(strNom);
 
+        //Tableau de booléen qui fonctionnera de pair avec l'affichage. Ce tableau determine aléatoirement si une case sera minée ou non.
         while (compteurMine >= 0) {
             for (int i = 0; i < HEIGHT; i++) {
                 float distribution = totalMine / (WIDTH * HEIGHT);
                 float mult100 = Math.round(distribution * 100);
                 for (int j = 0; j < WIDTH; j++) {
                     long random = Math.round(Math.random() * 100);
-                    // Log.i(TAG, "mult100 :" + mult100);
-                    // Log.i(TAG, " random:" + random);
                     if (random < mult100) {
                         checkMine[i][j] = mine;
                         compteurMine--;
                     } else {
                         checkMine[i][j] = !mine;
                     }
-
-
                     Log.i(TAG, "Compteur Mine :" + compteurMine);
                 }
             }
@@ -100,54 +96,51 @@ public class GameOnActivity extends Activity {
                     count++;
                     mesColonnes.setId(count);
                     mesRangs.addView(mesColonnes, linearParams2);
-                    mesColonnes.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clicCase(v);
-                            Log.i(TAG, "ID :" + mesColonnes.getId());
-                            Log.i(TAG, "Mine ? " + verifyBoard(mesColonnes.getId()));
-                            Log.i(TAG,  "Mines autour :" + distribImg(mesColonnes.getId()));
-                            String emptyCell = "@drawable/emptycell";
-                            String mineCell = "@drawable/trex";
-                            String cell1 = "@drawable/n1";
-                            String cell2 = "@drawable/n2";
-                            String cell3 = "@drawable/n3";
-                            String cell4 = "@drawable/n4";
-                            String cell5 = "@drawable/n5";
-                            String cell6 = "@drawable/n6";
-                            String cell7 = "@drawable/n7";
-                            String cell8 = "@drawable/n8";
+                    mesColonnes.setOnClickListener(v -> { // la fonction onClick
+                        clicCase(v);
 
-                            if (verifyBoard(mesColonnes.getId())) {
-                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(mineCell, null, getPackageName())));
-                                //defeat();
-                            } else
-                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
+                        // On determine ici l'aspect de la case lorqu'elle sera cliquée
+                        String emptyCell = "@drawable/emptycell";
+                        String mineCell = "@drawable/trex";
+                        String cell1 = "@drawable/n1";
+                        String cell2 = "@drawable/n2";
+                        String cell3 = "@drawable/n3";
+                        String cell4 = "@drawable/n4";
+                        String cell5 = "@drawable/n5";
+                        String cell6 = "@drawable/n6";
+                        String cell7 = "@drawable/n7";
+                        String cell8 = "@drawable/n8";
 
-                            if (!verifyBoard(mesColonnes.getId())) {
-                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
-                                if (distribImg(mesColonnes.getId()) == 1) {
-                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell1, null, getPackageName())));
-                                } else if (distribImg(mesColonnes.getId()) == 2) {
-                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell2, null, getPackageName())));
-                                } else if (distribImg(mesColonnes.getId()) == 3) {
-                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell3, null, getPackageName())));
-                                } else if (distribImg(mesColonnes.getId()) == 4) {
-                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell4, null, getPackageName())));
-                                } else if (distribImg(mesColonnes.getId()) == 5) {
-                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell5, null, getPackageName())));
-                                } else if (distribImg(mesColonnes.getId()) == 6) {
-                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell6, null, getPackageName())));
-                                } else if (distribImg(mesColonnes.getId()) == 7) {
-                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell7, null, getPackageName())));
-                                } else if (distribImg(mesColonnes.getId()) == 8) {
-                                    mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell8, null, getPackageName())));
-                                }
+                        if (verifyBoard(mesColonnes.getId())) {
+                            mesColonnes.setBackground(getDrawable(getResources().getIdentifier(mineCell, null, getPackageName())));
+                            //defeat();
+                        } else
+                            mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
+
+                        if (!verifyBoard(mesColonnes.getId())) {
+                            mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
+                            if (distribImg(mesColonnes.getId()) == 1) {
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell1, null, getPackageName())));
+                            } else if (distribImg(mesColonnes.getId()) == 2) {
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell2, null, getPackageName())));
+                            } else if (distribImg(mesColonnes.getId()) == 3) {
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell3, null, getPackageName())));
+                            } else if (distribImg(mesColonnes.getId()) == 4) {
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell4, null, getPackageName())));
+                            } else if (distribImg(mesColonnes.getId()) == 5) {
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell5, null, getPackageName())));
+                            } else if (distribImg(mesColonnes.getId()) == 6) {
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell6, null, getPackageName())));
+                            } else if (distribImg(mesColonnes.getId()) == 7) {
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell7, null, getPackageName())));
+                            } else if (distribImg(mesColonnes.getId()) == 8) {
+                                mesColonnes.setBackground(getDrawable(getResources().getIdentifier(cell8, null, getPackageName())));
                             }
-
                         }
+
                     });
-                    mesColonnes.setOnDragListener(new View.OnDragListener() {
+
+                    mesColonnes.setOnDragListener(new View.OnDragListener() { // La fonction de onDrag pour le drag and drop
                         @Override
                         public boolean onDrag(View v, DragEvent event) {
                         return true;
@@ -157,7 +150,28 @@ public class GameOnActivity extends Activity {
 
                 }
             }
+
+        ff.setOnClickListener(v -> { // la fonction pour abandonner
+            AlertDialog.Builder builder = new AlertDialog.Builder(GameOnActivity.this);
+            builder.setTitle(R.string.warning);
+            builder.setMessage(R.string.quit);
+
+            builder.setCancelable(true); // Si l'utilisateur clique à coté de la boite, ça annule tout
+
+            builder.setPositiveButton(R.string.yes, (dialog, which) -> {
+                NameActivity.mpInGame.stop();
+                Intent intent = new Intent(GameOnActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            });
+
+            builder.setNegativeButton(R.string.no   , (dialog, which) -> dialog.cancel());
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        });
     }
+
+    /////////////////////////////////////////////////////////////////// Méthodes Applicatives //////////////////////////////////////////////////////////////////////
 
     /**
      * Fonction qui affiche quelque chose au moment du clic sur la vue
@@ -351,18 +365,14 @@ public class GameOnActivity extends Activity {
      */
     public void defeat(){
         AlertDialog.Builder builder = new AlertDialog.Builder(GameOnActivity.this);
-        builder.setTitle("DEFAITE !");
-        builder.setMessage("Vous avez lamentablement échoué...");
+        builder.setTitle(R.string.defeat);
+        builder.setMessage(R.string.fail);
         builder.setCancelable(false); //
-        builder.setPositiveButton("Menu principal", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                NameActivity.mpInGame.stop();
-                Intent intent = new Intent(GameOnActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
+        builder.setPositiveButton(R.string.sousTitreMenu, (dialog, which) -> {
+            NameActivity.mpInGame.stop();
+            Intent intent = new Intent(GameOnActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -392,38 +402,4 @@ public class GameOnActivity extends Activity {
         config.locale = myLocale;
         getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
     }
-
-    /**
-     * Fonction qui affiche une bulle de dialogue et met un terme ou non à l'instance de la partie
-     * @param view la vue
-     */
-    public void clicForfeit(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(GameOnActivity.this);
-        builder.setTitle("Attention !");
-        builder.setMessage("Voulez-vous vraiment quitter ?");
-
-        builder.setCancelable(true); // Si l'utilisateur clique à coté de la boite, ça annule tout
-
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                NameActivity.mpInGame.stop();
-                Intent intent = new Intent(GameOnActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
 }

@@ -38,11 +38,10 @@
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pixeled"
-        android:onClick="clicSinglePlayer"
         android:text="@string/unJoueurMenu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/menu"
@@ -63,39 +62,36 @@
         app:layout_constraintTop_toBottomOf="@+id/menu" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pixeled"
-        android:onClick="clicRank"
         android:text="@string/classementMenu"
         app:layout_constraintEnd_toStartOf="@+id/menu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resume" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pixeled"
-        android:onClick="clicOptions"
         android:text="@string/optionMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/menu"
         app:layout_constraintTop_toBottomOf="@+id/resume" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pixeled"
         android:layout_marginTop="20dp"
-        android:onClick="clicExit"
         android:text="@string/exitMenu"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/play"
         app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/play"
         app:layout_constraintTop_toBottomOf="@+id/menu"
         app:layout_constraintVertical_bias="0.875" />
 

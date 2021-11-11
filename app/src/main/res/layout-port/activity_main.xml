@@ -39,12 +39,11 @@
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:fontFamily="@font/pixeled"
-        android:onClick="clicSinglePlayer"
         android:text="@string/unJoueurMenu"
         app:layout_constraintEnd_toEndOf="@+id/menu"
         app:layout_constraintStart_toStartOf="@+id/menu"
@@ -63,12 +62,11 @@
         app:layout_constraintTop_toBottomOf="@+id/menu" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="212dp"
         android:fontFamily="@font/pixeled"
-        android:onClick="clicRank"
         android:text="@string/classementMenu"
         app:layout_constraintEnd_toEndOf="@+id/menu"
         app:layout_constraintHorizontal_bias="0.48"
@@ -76,12 +74,11 @@
         app:layout_constraintTop_toBottomOf="@+id/menu" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="292dp"
         android:fontFamily="@font/pixeled"
-        android:onClick="clicOptions"
         android:text="@string/optionMenu"
         app:layout_constraintEnd_toEndOf="@+id/menu"
         app:layout_constraintHorizontal_bias="0.454"
@@ -89,11 +86,11 @@
         app:layout_constraintTop_toBottomOf="@+id/menu" />
 
     <Button
+        android:id="@+id/exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="376dp"
         android:fontFamily="@font/pixeled"
-        android:onClick="clicExit"
         android:text="@string/exitMenu"
         app:layout_constraintEnd_toEndOf="@+id/menu"
         app:layout_constraintHorizontal_bias="0.507"

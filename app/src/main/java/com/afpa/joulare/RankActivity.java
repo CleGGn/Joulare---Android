@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,7 +29,15 @@ public class RankActivity extends AppCompatActivity {
 
         Intent svc=new Intent(this, AudioHandler.class);
         startService(svc);
+
+        Button retour = findViewById(R.id.retourOptions);
+        retour.setOnClickListener(v -> { // Fonction retour
+            Log.i(TAG, "retourClic");
+            finish();
+        });
     }
+
+    /////////////////////////////////////////////////////////////////// Méthodes Applicatives //////////////////////////////////////////////////////////////////////
 
     /**
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences
@@ -54,15 +62,5 @@ public class RankActivity extends AppCompatActivity {
         android.content.res.Configuration config = new android.content.res.Configuration();
         config.locale = myLocale;
         getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
-    }
-
-
-    /**
-     * fonction qui termine l'intent et revient à l'écran précédent
-     * @param v la vue
-     */
-    public void retourClic(View v) {
-        Log.i(TAG, "retourClic");
-        finish();
     }
 }

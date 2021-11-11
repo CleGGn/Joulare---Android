@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 
 import com.afpa.joulare.audio.AudioHandler;
@@ -34,6 +34,35 @@ public class MainActivity extends AppCompatActivity {
 
         Intent audio = new Intent(this, AudioHandler.class);
         startService(audio);
+
+        Button play = findViewById(R.id.play);
+        Button rank = findViewById(R.id.rank);
+        Button options = findViewById(R.id.option);
+        Button exit = findViewById(R.id.exit);
+
+        play.setOnClickListener(v -> { // Fonction qui lance une nouvelle partie
+            Log.i(TAG, "clicPlay");
+            Intent intent = new Intent(MainActivity.this, NameActivity.class);
+            startActivity(intent);
+        });
+
+        rank.setOnClickListener(v -> { // Fonction qui renvoie vers la vue classement
+            Log.i(TAG, "clicRank");
+            Intent intent = new Intent(MainActivity.this, RankActivity.class);
+            startActivity(intent);
+        });
+
+        options.setOnClickListener(v -> { // Fonction qui renvoie vers la vue des options
+            Log.i(TAG, "clicOptions");
+            Intent intent = new Intent(MainActivity.this, ParamActivity.class);
+            startActivity(intent);
+        });
+
+        exit.setOnClickListener(v -> { // Fonction qui quitte l'application
+            Log.i(TAG, "clicExit");
+            finish();
+            System.exit(0);
+        });
     }
 
     @Override
@@ -46,45 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    /**
-     * Fonction qui renvoie à la vue Un joueur
-     * @param view la vue
-     */
-    public void clicSinglePlayer(View view){
-        Log.i(TAG, "clicPlay");
-        Intent intent = new Intent(MainActivity.this, NameActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     * Fonction qui renvoie à la vue Classement
-     * @param view la vue
-     */
-    public void clicRank(View view){
-        Log.i(TAG, "clicRank");
-        Intent intent = new Intent(MainActivity.this, RankActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     * Fonction qui renvoie à la vue Options
-     * @param view la vue
-     */
-    public void clicOptions(View view){
-        Log.i(TAG, "clicOptions");
-        Intent intent = new Intent(MainActivity.this, ParamActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     * Fonction qui quitte l'application
-     * @param view la vue
-     */
-    public void clicExit(View view) {
-        Log.i(TAG, "clicExit");
-        finish();
-        System.exit(0);
-    }
+    /////////////////////////////////////////////////////////////////// Méthodes Applicatives //////////////////////////////////////////////////////////////////////
 
     /**
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences

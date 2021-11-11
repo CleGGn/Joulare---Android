@@ -1,8 +1,5 @@
 package com.afpa.joulare;
 
-
-import static com.afpa.joulare.MainActivity.TAG;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,22 +7,17 @@ import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.afpa.joulare.audio.AudioHandler;
-
 import java.util.Locale;
 
 public class LangActivity extends AppCompatActivity {
 
     public final static String TAG = "LangActivity"; // Le TAG pour les Log
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,100 +33,92 @@ public class LangActivity extends AppCompatActivity {
         Button fr = findViewById(R.id.fr);
         Button eng = findViewById(R.id.en);
         Button es = findViewById(R.id.es);
+        Button retour = findViewById(R.id.retourOptions);
 
-        /**
-         * Fonction qui change la langue et la configuration de l'application en français si l'événement est déclenché
-         */
-        fr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "clicFR");
-                Locale locale = new Locale("fr");
-                String strLocale = locale.toString();
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
+        fr.setOnClickListener(v -> { // La fonction onClick pour passer en français
+            Log.i(TAG, "clicFR");
+            Locale locale = new Locale("fr");
+            String strLocale = locale.toString();
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
 
-                SharedPreferences mesPrefs = getSharedPreferences(MainActivity.Mes_Prefs, MODE_PRIVATE);
-                String language = mesPrefs.getString("Language", "");
+            SharedPreferences mesPrefs = getSharedPreferences(MainActivity.Mes_Prefs, MODE_PRIVATE);
+            String language = mesPrefs.getString("Language", "");
 
-                if (!language.equals(strLocale)) {
-                SharedPreferences.Editor edMesPrefs = mesPrefs.edit();
-                edMesPrefs.putString("Language", strLocale).apply();
+            if (!language.equals(strLocale)) {
+            SharedPreferences.Editor edMesPrefs = mesPrefs.edit();
+            edMesPrefs.putString("Language", strLocale).apply();
 
-                Intent intent = new Intent(LangActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+            Intent intent = new Intent(LangActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
 
-                } else {
-                    MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
-                    mpMundo.start();
-                    Toast.makeText(LangActivity.this,R.string.sameLang, Toast.LENGTH_SHORT).show();
-                }
+            } else {
+                MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
+                mpMundo.start();
+                Toast.makeText(LangActivity.this,R.string.sameLang, Toast.LENGTH_SHORT).show();
             }
         });
 
-        /**
-         * Fonction qui change la langue et la configuration de l'application en anglais si l'événement est déclenché
-         */
-        eng.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "clicENG");
-                Locale locale = new Locale("eng");
-                String strLocale = locale.toString();
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
 
-                SharedPreferences mesPrefs = getSharedPreferences(MainActivity.Mes_Prefs, MODE_PRIVATE);
-                String language = mesPrefs.getString("Language", "");
+        eng.setOnClickListener(v -> {  // La fonction onClick pour passer en anglais
+            Log.i(TAG, "clicENG");
+            Locale locale = new Locale("eng");
+            String strLocale = locale.toString();
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
 
-                if (!language.equals(strLocale)) {
-                SharedPreferences.Editor edMesPrefs = mesPrefs.edit();
-                edMesPrefs.putString("Language", strLocale).apply();
+            SharedPreferences mesPrefs = getSharedPreferences(MainActivity.Mes_Prefs, MODE_PRIVATE);
+            String language = mesPrefs.getString("Language", "");
 
-                Intent intent = new Intent(LangActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                } else {
-                    MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
-                    mpMundo.start();
-                    Toast.makeText(LangActivity.this,R.string.sameLang, Toast.LENGTH_SHORT).show();
-                }
+            if (!language.equals(strLocale)) {
+            SharedPreferences.Editor edMesPrefs = mesPrefs.edit();
+            edMesPrefs.putString("Language", strLocale).apply();
+
+            Intent intent = new Intent(LangActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            } else {
+                MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
+                mpMundo.start();
+                Toast.makeText(LangActivity.this,R.string.sameLang, Toast.LENGTH_SHORT).show();
             }
         });
 
-        /**
-         * Fonction qui change la langue et la configuration de l'application en espagnol si l'événement est déclenché
-         */
-        es.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "clicES");
-                Locale locale = new Locale("es");
-                String strLocale = locale.toString();
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
 
-                SharedPreferences mesPrefs = getSharedPreferences(MainActivity.Mes_Prefs, MODE_PRIVATE);
-                String language = mesPrefs.getString("Language", "");
+        es.setOnClickListener(v -> { // La fonction onClick pour passer en espagnol
+            Log.i(TAG, "clicES");
+            Locale locale = new Locale("es");
+            String strLocale = locale.toString();
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
 
-                if (!language.equals(strLocale)) {
-                SharedPreferences.Editor edMesPrefs = mesPrefs.edit();
-                edMesPrefs.putString("Language", strLocale).apply();
-                Intent intent = new Intent(LangActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                } else {
-                    MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
-                    mpMundo.start();
-                    Toast.makeText(LangActivity.this,R.string.sameLang, Toast.LENGTH_SHORT).show();
-                }
+            SharedPreferences mesPrefs = getSharedPreferences(MainActivity.Mes_Prefs, MODE_PRIVATE);
+            String language = mesPrefs.getString("Language", "");
+
+            if (!language.equals(strLocale)) {
+            SharedPreferences.Editor edMesPrefs = mesPrefs.edit();
+            edMesPrefs.putString("Language", strLocale).apply();
+            Intent intent = new Intent(LangActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            } else {
+                MediaPlayer mpMundo = MediaPlayer.create(getBaseContext(),R.raw.mundo);
+                mpMundo.start();
+                Toast.makeText(LangActivity.this,R.string.sameLang, Toast.LENGTH_SHORT).show();
             }
+        });
+
+        retour.setOnClickListener(v -> {  // La fonction de retour
+            Log.i(TAG, "retourClic");
+            finish();
         });
     }
+
+    /////////////////////////////////////////////////////////////////// Méthodes Applicatives  ///////////////////////////////////////////////////////////////////
 
     /**
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences
@@ -162,12 +146,4 @@ public class LangActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * fonction qui termine l'intent et revient à l'écran précédent
-     * @param v la vue
-     */
-    public void retourClic(View v) {
-        Log.i(TAG, "retourClic");
-        finish();
-    }
 }
