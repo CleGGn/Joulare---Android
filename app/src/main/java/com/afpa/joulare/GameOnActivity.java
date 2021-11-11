@@ -43,7 +43,7 @@ public class GameOnActivity extends Activity {
             }
             public void onFinish() {
                 timer.setText("X");
-                defeat();
+                //defeat();
             }
         }.start();
 
@@ -103,7 +103,7 @@ public class GameOnActivity extends Activity {
 
                             if (verifyBoard(mesColonnes.getId())) {
                                 mesColonnes.setBackground(getDrawable(getResources().getIdentifier(mineCell, null, getPackageName())));
-                                defeat();
+                                //defeat();
                             } else
                                 mesColonnes.setBackground(getDrawable(getResources().getIdentifier(emptyCell, null, getPackageName())));
 
@@ -227,7 +227,7 @@ public class GameOnActivity extends Activity {
                 if(verifyBoard(idVue + 1)){
                     count++;
                 }
-                if(verifyBoard(idVue + (WIDTH - 1))){
+                if(verifyBoard(idVue - (WIDTH - 1))){
                     count++;
                 }
                 if(verifyBoard(idVue + WIDTH)){
@@ -279,7 +279,7 @@ public class GameOnActivity extends Activity {
                 if(verifyBoard(idVue - 1)){
                     count++;
                 }
-                if(verifyBoard(idVue - (WIDTH - 1))){
+                if(verifyBoard(idVue - (WIDTH + 1))){
                     count++;
                 }
                 if(verifyBoard(idVue - WIDTH)){
@@ -342,7 +342,6 @@ public class GameOnActivity extends Activity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
 
     /**
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences
