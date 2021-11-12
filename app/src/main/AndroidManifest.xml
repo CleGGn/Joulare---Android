@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.afpa.joulare">
 
     <application
@@ -8,26 +9,36 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Joulare">
+        android:theme="@style/Theme.Joulare"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+                <action   android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ParamActivity"></activity>
+        <activity
+            android:name=".ParamActivity"
+            android:exported="true" />
 
-        <activity android:name=".LangActivity"></activity>
+        <activity
+            android:name=".LangActivity"
+            android:exported="true" />
 
-        <activity android:name=".RankActivity"></activity>
+        <activity
+            android:name=".RankActivity"
+            android:exported="true" />
 
-        <activity android:name=".NameActivity"></activity>
+        <activity
+            android:name=".NameActivity"
+            android:exported="true" />
 
-        <activity android:name=".GameOnActivity"
-             android:screenOrientation="portrait"></activity>
-
+        <activity
+            android:name=".GameOnActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 </manifest>

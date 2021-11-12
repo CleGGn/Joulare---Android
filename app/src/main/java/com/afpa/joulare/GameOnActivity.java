@@ -23,13 +23,13 @@ import java.util.Locale;
 public class GameOnActivity extends Activity {
 
     public final static String TAG = "GameOnActivity"; // Le TAG pour les Log
-    public int WIDTH = 5; // Largeur de la grille
-    public int HEIGHT = 5; // Longueur de la grill
-    public float totalMine = 3; // Le nombre total de mine que l'on veut implémenter à la base
+    public int WIDTH = 4; // Largeur de la grille
+    public int HEIGHT = 4; // Longueur de la grill
+    public float totalMine = 1; // Le nombre total de mine que l'on veut implémenter à la base
     public float compteurMine = totalMine; // Le compteur de mine qui va se décrémenter dans le tableau
     public boolean [][] checkMine = new boolean[HEIGHT][WIDTH]; // Tableau de booléen qui positionnera les mines
-    boolean mine = true; // Booléen de case miné ou non
-
+    boolean mine = true; // Booléen de case minée ou non
+    boolean revealed = false; // Booléen de case retournée ou non
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -39,6 +39,7 @@ public class GameOnActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         loadLocale();
         setContentView(R.layout.activity_gameon);
+
         Button ff = findViewById(R.id.ff);
 
         // Initialisation du TIMER
@@ -50,7 +51,7 @@ public class GameOnActivity extends Activity {
             }
             public void onFinish() {
                 timer.setText("X");
-                //defeat();
+                defeat();
             }
         }.start();
 
@@ -60,14 +61,17 @@ public class GameOnActivity extends Activity {
         String strNom = nom.getExtras().getString("nom");
         nomJoueur.setText(strNom);
 
+        TextView flags = findViewById(R.id.flags);
+
+
         //Tableau de booléen qui fonctionnera de pair avec l'affichage. Ce tableau determine aléatoirement si une case sera minée ou non.
-        while (compteurMine >= 0) {
+        while (compteurMine > 0) {
             for (int i = 0; i < HEIGHT; i++) {
                 float distribution = totalMine / (WIDTH * HEIGHT);
                 float mult100 = Math.round(distribution * 100);
                 for (int j = 0; j < WIDTH; j++) {
                     long random = Math.round(Math.random() * 100);
-                    if (random < mult100) {
+                    if (random < mult100 && compteurMine !=0) {
                         checkMine[i][j] = mine;
                         compteurMine--;
                     } else {
@@ -77,6 +81,14 @@ public class GameOnActivity extends Activity {
                 }
             }
         }
+/*
+        for (int k = 0; k < HEIGHT; k++) {
+            for (int l = 0; l < WIDTH; l++) {
+                checkMine[k][l] = revealed;
+            }
+        }
+
+ */
 
         //Affichage de la grille
         LinearLayout monLayout = findViewById(R.id.grille);
@@ -96,9 +108,9 @@ public class GameOnActivity extends Activity {
                     count++;
                     mesColonnes.setId(count);
                     mesRangs.addView(mesColonnes, linearParams2);
+
                     mesColonnes.setOnClickListener(v -> { // la fonction onClick
                         clicCase(v);
-
                         // On determine ici l'aspect de la case lorqu'elle sera cliquée
                         String emptyCell = "@drawable/emptycell";
                         String mineCell = "@drawable/trex";
@@ -138,6 +150,17 @@ public class GameOnActivity extends Activity {
                             }
                         }
 
+                        /*
+                        if(revealing(mesColonnes.getId())){
+                            if(checkGameWin()){
+                                NameActivity.mpInGame.stop();
+                                Intent intent = new Intent(GameOnActivity.this, MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        }
+
+                         */
                     });
 
                     mesColonnes.setOnDragListener(new View.OnDragListener() { // La fonction de onDrag pour le drag and drop
@@ -174,12 +197,52 @@ public class GameOnActivity extends Activity {
     /////////////////////////////////////////////////////////////////// Méthodes Applicatives //////////////////////////////////////////////////////////////////////
 
     /**
+     * Fonction qui vérifie si les conditions de victoire sont respectées
+     * @return booleén
+     */
+    public boolean revealing(int idVue) {
+        int i;
+        int j;
+        if (idVue > WIDTH) {
+            i = idVue / WIDTH;
+            j = idVue % WIDTH;
+        } else if(idVue == WIDTH){
+            i = 1;
+            j = 0;
+        } else{
+            i = 0;
+            j = idVue;
+        }
+
+        if (checkMine[i][j] == revealed){
+            checkMine[i][j] = !revealed;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkGameWin()
+    {
+        for (int i = 1; i < HEIGHT; i++)
+        {
+            for (int j = 1; j < WIDTH; j++)
+            {
+                if (checkMine[i][j] == !mine  && checkMine[i][j] == revealed)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * Fonction qui affiche quelque chose au moment du clic sur la vue
      * @param v la vue
      */
     private void clicCase(View v) {
         int idVue = v.getId();
-        Log.i(TAG, "CASE : " + idVue);
+        //Log.i(TAG, "CASE : " + idVue);
     }
 
     /**
@@ -279,7 +342,7 @@ public class GameOnActivity extends Activity {
                 if(verifyBoard(idVue - WIDTH)){
                     count++;
                 }
-                if(verifyBoard(idVue - (WIDTH - 1))){
+                if(verifyBoard(idVue - (WIDTH + 1))){
                     count++;
                 }
             } else if (i == HEIGHT - 1){

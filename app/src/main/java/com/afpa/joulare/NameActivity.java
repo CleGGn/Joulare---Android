@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.afpa.joulare.audio.AudioHandler;
-
 import java.util.Locale;
 
 public class NameActivity  extends AppCompatActivity {
@@ -31,9 +29,6 @@ public class NameActivity  extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         loadLocale();
         setContentView(R.layout.activity_name);
-
-        Intent svc=new Intent(this, AudioHandler.class);
-        startService(svc);
 
         Button playGame = findViewById(R.id.playGame);
         Button retour = findViewById(R.id.retourOptions);
@@ -93,7 +88,7 @@ public class NameActivity  extends AppCompatActivity {
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences
      */
     public void loadLocale() {
-        Log.i(TAG, "loadLocale");
+        //Log.i(TAG, "loadLocale");
         SharedPreferences prefs = getSharedPreferences("Mes_Prefs", Activity.MODE_PRIVATE);
         String language = prefs.getString("Language", "");
         changeLang(language);
@@ -104,7 +99,7 @@ public class NameActivity  extends AppCompatActivity {
      * @param lang la langue présente dans les préférences
      */
     public void changeLang(String lang) {
-        Log.i(TAG, "changeLang");
+        //Log.i(TAG, "changeLang");
         if (lang.equalsIgnoreCase(""))
             return;
         Locale myLocale = new Locale(lang);

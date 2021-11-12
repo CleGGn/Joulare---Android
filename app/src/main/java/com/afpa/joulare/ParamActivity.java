@@ -47,7 +47,7 @@ public class ParamActivity extends AppCompatActivity {
      * Fonction executée au lancement, elle va récupérer la dernière langue choisie dans le fichier préférences
      */
     public void loadLocale() {
-        Log.i(TAG, "loadLocale");
+        //Log.i(TAG, "loadLocale");
         SharedPreferences prefs = getSharedPreferences("Mes_Prefs", Activity.MODE_PRIVATE);
         String language = prefs.getString("Language", "");
         changeLang(language);
@@ -58,7 +58,7 @@ public class ParamActivity extends AppCompatActivity {
      * @param lang la langue présente dans les préférences
      */
     public void changeLang(String lang) {
-        Log.i(TAG, "changeLang");
+        //Log.i(TAG, "changeLang");
         if (lang.equalsIgnoreCase(""))
             return;
         Locale myLocale = new Locale(lang);
