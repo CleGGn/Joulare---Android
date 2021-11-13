@@ -36,4 +36,7 @@
 
     <string name="flagIcone">🚩</string>
 
+    <string name="victory">VICTOIRE</string>
+    <string name="congrats">Félicitations, </string>
+    <string name="smart">Vous etes vraiment trés intelligent !</string>
 </resources>

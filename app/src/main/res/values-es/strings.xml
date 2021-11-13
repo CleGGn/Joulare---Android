@@ -37,4 +37,7 @@
 
     <string name="flagIcone">🚩</string>
 
+    <string name="victory">VICTORIA</string>
+    <string name="congrats">Felicidades, </string>
+    <string name="smart">Eres realmente muy inteligente !</string>
 </resources>
