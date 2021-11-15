@@ -1,34 +1,45 @@
 package com.afpa.joulare;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Locale;
 
-public class RankActivity extends AppCompatActivity {
+public class VictoryActivity extends AppCompatActivity {
 
-    public final static String TAG = "RankActivity"; // Le TAG pour les Log
+    // public final static String TAG = "VictoryActivity"; // Le TAG pour les Log
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         loadLocale();
-        setContentView(R.layout.activity_rank);
+        setContentView(R.layout.activity_victory);
 
-        Button retour = findViewById(R.id.retourOptions);
-        retour.setOnClickListener(v -> { // Fonction retour
-            Log.i(TAG, "retourClic");
-            finish();
+        //Affichage du nom du joueur
+        TextView nomJoueur = findViewById(R.id.nameEnd);
+        Intent nom = getIntent();
+        String strNom = nom.getExtras().getString("nom");
+        nomJoueur.setText(strNom);
+
+
+        Button retourMenu = findViewById(R.id.retourMenu);
+
+        retourMenu.setOnClickListener(v -> {
+            Intent intent = new Intent(VictoryActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
+
     }
 
     /////////////////////////////////////////////////////////////////// Méthodes Applicatives //////////////////////////////////////////////////////////////////////
@@ -57,4 +68,5 @@ public class RankActivity extends AppCompatActivity {
         config.locale = myLocale;
         getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
     }
+
 }

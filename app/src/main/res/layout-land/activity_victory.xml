@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:background="@drawable/backland"
-    tools:context=".ParamActivity">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".VictoryActivity">
 
     <TextView
         android:id="@+id/title"
@@ -22,13 +24,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
+
     <TextView
         android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/pixelbit"
-        android:text="@string/optionMenu"
+        android:text="@string/victory"
         android:textAlignment="center"
         android:textColor="#3EDD1A"
         android:textSize="40sp"
@@ -37,26 +40,58 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <Button
-        android:id="@+id/langue"
+    <TextView
+        android:id="@+id/nameEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
         android:fontFamily="@font/pixeled"
-        android:text="@string/langueOption"
+        android:text="@string/congrats"
+        android:textColor="#3EDD1A"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageHeimer"
         app:layout_constraintEnd_toEndOf="@+id/menu"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="@+id/menu"
-        app:layout_constraintTop_toBottomOf="@+id/menu" />
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pixeled"
+        android:text="@string/smart"
+        android:textColor="#3EDD1A"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageHeimer"
+        app:layout_constraintEnd_toEndOf="@+id/menu"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/menu"
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:layout_constraintVertical_bias="0.827" />
+
+    <ImageView
+        android:id="@+id/imageHeimer"
+        android:layout_width="95dp"
+        android:layout_height="88dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="92dp"
+        android:background="@drawable/heimer"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/menu"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="@+id/menu"
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        android:contentDescription="@string/heimer" />
 
     <Button
-        android:id="@+id/retourOptions"
+        android:id="@+id/retourMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
         android:fontFamily="@font/pixeled"
-        android:text="@string/exitRetour"
-        app:layout_constraintEnd_toEndOf="@+id/langue"
-        app:layout_constraintStart_toStartOf="@+id/langue"
+        android:text="@string/sousTitreMenu"
+        app:layout_constraintEnd_toEndOf="@+id/imageHeimer"
+        app:layout_constraintStart_toStartOf="@+id/imageHeimer"
         app:layout_constraintTop_toBottomOf="@+id/menu" />
 
 

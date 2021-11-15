@@ -27,6 +27,17 @@
     <string name="lengthName">13 character limit</string>
     <string name="emptyName">Please choose a name</string>
 
+    <string name="defeat">DEFEAT</string>
+    <string name="fail">You failed miserably …</string>
+    <string name="warning">Warning !</string>
+    <string name="quit">Do you really want to quit ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
     <string name="flagIcone">🚩</string>
 
+    <string name="victory">VICTORY</string>
+    <string name="congrats">Congratulations, </string>
+    <string name="smart">You are really very smart !</string>
+    <string name="heimer">Heimerdinger</string>
 </resources>

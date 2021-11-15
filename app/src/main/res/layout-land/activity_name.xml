@@ -41,22 +41,24 @@
         android:layout_height="36dp"
         android:layout_marginTop="32dp"
         android:background="#D47BE3"
+        android:hint="@string/emptyName"
         android:fontFamily="@font/pixeled"
         android:textAlignment="center"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/menu"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/menu"
-        app:layout_constraintTop_toBottomOf="@+id/menu" />
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        android:autofillHints="@string/emptyName"
+        android:inputType="text"/>
 
     <Button
-        android:id="@+id/es"
+        android:id="@+id/playGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/pixeled"
         android:text="@string/playName"
-        android:onClick="clicPlay"
         app:layout_constraintEnd_toEndOf="@+id/choiceName"
         app:layout_constraintStart_toStartOf="@+id/choiceName"
         app:layout_constraintTop_toBottomOf="@+id/choiceName" />
@@ -67,12 +69,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/pixeled"
-        android:onClick="retourClic"
         android:text="@string/exitRetour"
-        app:layout_constraintEnd_toEndOf="@+id/es"
+        app:layout_constraintEnd_toEndOf="@+id/playGame"
         app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="@+id/es"
-        app:layout_constraintTop_toBottomOf="@+id/es" />
+        app:layout_constraintStart_toStartOf="@+id/playGame"
+        app:layout_constraintTop_toBottomOf="@+id/playGame" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

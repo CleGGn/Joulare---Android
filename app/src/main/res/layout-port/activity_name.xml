@@ -43,13 +43,16 @@
         android:layout_height="46dp"
         android:layout_marginTop="72dp"
         android:background="#D47BE3"
+        android:hint="@string/emptyName"
         android:fontFamily="@font/pixeled"
         android:textAlignment="center"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="@+id/menu"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="@+id/menu"
-        app:layout_constraintTop_toBottomOf="@+id/menu" />
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        android:autofillHints="@string/emptyName"
+        android:inputType="text"/>
 
     <Button
         android:id="@+id/playGame"
@@ -57,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="152dp"
         android:fontFamily="@font/pixeled"
-        android:onClick="clicPlay"
         android:text="@string/playName"
         app:layout_constraintEnd_toEndOf="@+id/menu"
         app:layout_constraintHorizontal_bias="0.486"
@@ -70,7 +72,6 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="376dp"
     android:fontFamily="@font/pixeled"
-    android:onClick="retourClic"
     android:text="@string/exitRetour"
     app:layout_constraintEnd_toEndOf="@+id/menu"
     app:layout_constraintHorizontal_bias="0.492"

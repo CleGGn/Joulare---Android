@@ -8,8 +8,7 @@
     android:background="@drawable/back"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
+    tools:context=".VictoryActivity">
 
     <TextView
         android:id="@+id/title"
@@ -24,13 +23,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:fontFamily="@font/pixelbit"
-        android:text="@string/sousTitreMenu"
+        android:text="@string/victory"
         android:textAlignment="center"
         android:textColor="#3EDD1A"
         android:textSize="40sp"
@@ -38,62 +38,74 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <Button
-        android:id="@+id/play"
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
         android:fontFamily="@font/pixeled"
-        android:text="@string/unJoueurMenu"
+        android:text="@string/congrats"
+        android:textColor="#D47BE3"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageHeimer"
         app:layout_constraintEnd_toEndOf="@+id/menu"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="@+id/menu"
-        app:layout_constraintTop_toBottomOf="@+id/menu" />
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:layout_constraintVertical_bias="0.247" />
 
-    <Button
-        android:id="@+id/resume"
+    <TextView
+        android:id="@+id/nameEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
         android:fontFamily="@font/pixeled"
-        android:text="@string/resume"
+        android:textColor="#D47BE3"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageHeimer"
         app:layout_constraintEnd_toEndOf="@+id/menu"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/menu"
-        app:layout_constraintTop_toBottomOf="@+id/menu" />
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:layout_constraintVertical_bias="0.537" />
 
-    <Button
-        android:id="@+id/rank"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="212dp"
         android:fontFamily="@font/pixeled"
-        android:text="@string/classementMenu"
+        android:text="@string/smart"
+        android:textColor="#D47BE3"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageHeimer"
         app:layout_constraintEnd_toEndOf="@+id/menu"
-        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="@+id/menu"
-        app:layout_constraintTop_toBottomOf="@+id/menu" />
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:layout_constraintVertical_bias="0.826" />
+
+    <ImageView
+        android:id="@+id/imageHeimer"
+        android:layout_width="230dp"
+        android:layout_height="197dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="156dp"
+        android:background="@drawable/heimer"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/menu"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="@+id/menu"
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        android:contentDescription="@string/heimer" />
 
     <Button
-        android:id="@+id/option"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="292dp"
-        android:fontFamily="@font/pixeled"
-        android:text="@string/optionMenu"
-        app:layout_constraintEnd_toEndOf="@+id/menu"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="@+id/menu"
-        app:layout_constraintTop_toBottomOf="@+id/menu" />
-
-    <Button
-        android:id="@+id/exit"
+        android:id="@+id/retourMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="376dp"
         android:fontFamily="@font/pixeled"
-        android:text="@string/exitMenu"
+        android:text="@string/sousTitreMenu"
         app:layout_constraintEnd_toEndOf="@+id/menu"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="@+id/menu"
         app:layout_constraintTop_toBottomOf="@+id/menu" />
 

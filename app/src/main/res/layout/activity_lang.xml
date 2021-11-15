@@ -77,7 +77,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="376dp"
         android:fontFamily="@font/pixeled"
-        android:onClick="retourClic"
         android:text="@string/exitRetour"
         app:layout_constraintEnd_toEndOf="@+id/menu"
         app:layout_constraintHorizontal_bias="0.492"

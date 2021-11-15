@@ -26,8 +26,19 @@
     <string name="sameLang">Ya estas en español</string>
 
     <string name="lengthName">Límite de 13 caracteres</string>
-    <string name="emptyName">Por favor elija un nombre</string>
+    <string name="emptyName">Elija un nombre</string>
+
+    <string name="defeat">FRACASO</string>
+    <string name="fail">Fallaste miserablemente…</string>
+    <string name="warning">Atención !</string>
+    <string name="quit">¿Seguro que quieres salir?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
 
     <string name="flagIcone">🚩</string>
 
+    <string name="victory">VICTORIA</string>
+    <string name="congrats">Felicidades, </string>
+    <string name="smart">Eres realmente muy inteligente !</string>
+    <string name="heimer">Heimerdinger</string>
 </resources>
